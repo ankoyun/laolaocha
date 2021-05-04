@@ -2,39 +2,21 @@ language: java
 
 jdk:
   - oraclejdk8
- 
- #指定缓存模块，可选。缓存可加快编译速度。
+
 cache:
   directories:
-    - node_modules
+  - '$HOME/.m2/repository'
 
-before_install:
-    - export TZ='Asia/Hangzhou' # 更改时区    
+#before_install:
+# - chmod +x gradlew
 
-# Start: Build Lifecycle
-install:
-  - npm install
-
-# 执行清缓存，生成网页操作
 script:
-  - hexo clean
-  - hexo generate
-# 指定博客分支
-branches:
-  only:
-    - blog-source
+  - mvn clean package -laolaocha=true
 
-# 指定博客的仓库地址
-env:
- global:
-    - GH_REF: git@github.com:https://github.com/ankoyun/laolaocha.git
-
-# 设置git提交名，邮箱；替换真实token到_config.yml文件，最后depoy部署
-after_script:
-  - cd ./public
+after_success:
   - git init
   - git config user.name "ankoyun"
-  - git config user.email "1467862577@qq.com"
-  - git add .
-  - git commit -m "TravisCI 自动部署"
-  - git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:gh-pages
+  - git config user.email "1467962577@qq.com"
+  - git add spring-boot-jsp.war
+  - git commit -m "version 1"
+  - git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:master
