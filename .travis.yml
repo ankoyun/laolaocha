@@ -22,13 +22,12 @@ script:
 # 指定博客分支
 branches:
   only:
-    - master #触发持续集成的分支
+    - blog-source
 
 # 指定博客的仓库地址
 env:
  global:
     - GH_REF: git@github.com:https://github.com/ankoyun/laolaocha.git
-    - GE_REF: git@gitee.com:https://github.com/ankoyun/laolaocha.git
 
 # 设置git提交名，邮箱；替换真实token到_config.yml文件，最后depoy部署
 after_script:
